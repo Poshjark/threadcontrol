@@ -1,6 +1,7 @@
 #include "colors.h"
 #include <string>
 
+
 std::unordered_map<Color,int> color_controls::order{
         {Color::red, 0},
         {Color::green, 1},
@@ -14,8 +15,19 @@ std::unordered_map<Color,std::string> color_controls::color_names{
     };
 
 void init_order(){
+    const std::string hello =   "Hello! I am program with few functions! I can:"
+                                " running, stopping and continuing execution of two threads\n"
+                                "These threads are:"
+                                "\n1) generator  - can generate random consequences" 
+                                "of objects marked with one of three colors: red, green or blue\n"
+                                "2) sorter - sorts objects created by generator\n"
+                                "At first you should specify order of colors typing characters 'r' 'g' and 'b'"
+                                " in ascending(0123...) order. For example 'rgb' or 'gbr'\n"
+                                "Every character must appear strictly once"
+                                "This order will be used to sort generated objects\n";
+    std::cout << hello << std::endl;
     std::string command;
-    std::cout << "Enter order of colors for example {rgb} or {grb} in ascending order without brackets: ";
+    std::cout << "Now please specify color order: ";
     while(true){
         std::getline(std::cin,command);
         if(command.size() == 3){
@@ -23,8 +35,7 @@ void init_order(){
                 break;
             }
         }
-        std::cout << "Please specify correct order of colors - three characters(rgb) without whitespaces: ";
-        continue;
+        std::cout << "Please specify correct order of colors - three different characters(rgb) without whitespaces: ";
     }
     for(int i = 0; i < 3; i++){
         color_controls::order[static_cast<Color>(command[i])] = i;

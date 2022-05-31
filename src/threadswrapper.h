@@ -8,7 +8,6 @@
 #include <sstream>
 #include <ctime>
 #include <functional>
-
 #include <thread>
 
 // Gets date and time from system clock and formats it for example to  "2022-05-30 07:19:00"

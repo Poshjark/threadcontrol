@@ -15,7 +15,7 @@ int main(){
     tw.create_thread(generator_name, &Storage::push_random, std::ref(s));
     tw.create_thread(sorter_name,  &Storage::sort, std::ref(s));
     
-    
+    std::cout << "Now you have two threads with names '" << sorter_name <<"' and '" << generator_name <<"'\n";
     while(true){
         std::cout << "Enter command(run <name> / stop <name> / abort): ";
         std::getline(std::cin, message_from_user);
@@ -32,11 +32,15 @@ int main(){
             break;
         }
     }
+    std::cout << "Print logs? y/n\n";
+    std::getline(std::cin, message_from_user);
+    if(message_from_user == "y" || message_from_user == "Y"){
+        std::cout << "LOGS:\n" << tw.get_logs();
+        std::cout << "Data is ";
+        s.print();
+        std::cout << "Data is consistent - " << std::boolalpha << s.test_data() << std::endl;
+    }
     
-    std::cout << "LOGS:\n" << tw.get_logs();
-    std::cout << "Data is ";
-    s.print();
-    std::cout << "Data is consistent - " << std::boolalpha << s.test_data() << std::endl;
     system("pause");
     return 0;
 }
