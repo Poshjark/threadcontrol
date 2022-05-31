@@ -17,6 +17,7 @@ void print_std_container(T& cont) {
 
 /*
 * Storage class to store Objects marked with any defined Color.
+* @param Object class/typename must have overloaded comparison operators
 */
 class Storage {
 

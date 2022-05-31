@@ -29,7 +29,7 @@ bool operator<(Color&& color1, Color&& color2 ){
     return color_controls::order[color1] < color_controls::order[color2];
 };
 
-// Objects markerd with some color
+// Object marked with some color
 struct Object{
     Color mark;
     Object(Color _mark) : mark(_mark){};
@@ -57,6 +57,6 @@ std::ostream& operator<<(std::ostream& os, const Object& obj);
 
 
 // Function for Initializing order of elements to sort in
-// Must be called once in the beginning
+// Must! be called once in the beginning
 void init_order();
 

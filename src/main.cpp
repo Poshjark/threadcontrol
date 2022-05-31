@@ -31,6 +31,9 @@ int main(){
             tw.abort_all();
             break;
         }
+        else{
+            std::cout << "Wrong command, please give valid command with correct name\n";
+        }
     }
     std::cout << "Print logs? y/n\n";
     std::getline(std::cin, message_from_user);

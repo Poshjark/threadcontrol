@@ -10,6 +10,8 @@
 #include <functional>
 #include <thread>
 
+
+
 // Gets date and time from system clock and formats it for example to  "2022-05-30 07:19:00"
 std::string getTimeStr();
 
@@ -18,7 +20,6 @@ std::string getTimeStr();
 * 
 * It has some interface for managing these threads.
 * 
-*  
 */
 class ThreadsWrapper{
 
@@ -140,6 +141,7 @@ public:
     // Aborts all thread's execution and joining them to master thread.
     void abort_all();
     
+    // Returns string representation of written logs
     std::string get_logs();
 
     ~ThreadsWrapper();
