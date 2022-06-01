@@ -18,8 +18,10 @@ std::string getTimeStr();
 /**
 * Wrapper class for two threads - generator and sorter.
 * 
-* It has some interface for managing these threads.
-* 
+* It has some interface for managing these threads:
+* 1) run (NAME) - runs thread which has name 'NAME'
+* 2) stop (NAME) - temporarily suspend thread with name 'NAME' execution
+* 3) abort_all - aborts all threads execution. Joins them to master thread
 */
 class ThreadsWrapper{
 
@@ -29,7 +31,7 @@ class ThreadsWrapper{
     * Has no copy constructor because of std::mutex and std::condition_variable policy
     */
     struct Controls {
-        std::mutex m;                   // Formal mutex for condition_variable
+        std::mutex m;                   // Formal mutex for inner condition_variable
         std::condition_variable cv;
         bool permission_to_work = false;
     };
@@ -38,8 +40,14 @@ class ThreadsWrapper{
     std::unordered_map<std::string, Controls> controls_map;
     std::mutex storage_mutex;
 
+    /*
+    * Function private within context that joins all threads to master thread.
+    * Order of suspending threads to abort and join them is FIFO - first-in-first-out
+    */
     void join_all();
-
+    
+    
+    // Logger object based on stringstream
     class Logger {
     public:
         std::stringstream ss;
@@ -50,14 +58,14 @@ class ThreadsWrapper{
         }
     };
 
-    Logger logger;// Initializing global logger object to have common logger for all threads
+    Logger logger;
 
 
 public:
     
     /*
-    *  Function creating threads with their own name to control them execution
-    *  Function _func passed here is being wrapped to thread execution control logic.
+    *  Function creating threads with their own specified name to control them execution
+    *  Function _func passed here is being wrapped to thread execution control logic and is being called while thread has permission to work.
     *
     *  @param name - Name of thread, which will be used to run and stop its execution
     *  @param _func - callable object(function reference, lambda, object with implemented operator() or member function)
